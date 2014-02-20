@@ -1,0 +1,53 @@
+; new version of init file for running chemotaxis simulations
+; everything specified in a single file. no more commandlines
+; instead of WILLS_MODEL we should use a different key-word
+$CELLTYPE
+;WILLS_MODEL
+; parameters keep their meaning. they are ... 
+; kr, Kr, kb, Kb, noise_parameter, meth_init, cheyp, numOfMotors, isCoordinated, flagellaModel, minFlagellaToRun, 
+; semiWaitingTime, cellSpeed, numOfCells, isChemotactic
+;0.002467, 0.500000, 0.881383, 0.230000, 0.3000000, 0.435448, 1.593180, 4, 1, 1, 2, 0.2, 20.0, 10, 1
+OLD_MODEL
+; CheYp tau tau noise numOfMotors isCoordinated flagellaModel minFlagellaToRun semiWaitingTime cellspeed numOfCells G1 isChemotactic
+2.632, 15, 15,  0.00, 4, 1, 1, 2, 0.2, 20, 3000, 40, 1
+2.560, 15, 15,  0.15, 4, 0, 1, 2, 0.2, 20, 3000, 40, 1
+2.560, 15, 15,  0.15, 4, 1, 1, 2, 0.2, 20, 3000, 40, 1
+2.380, 15, 15,  0.30, 4, 1, 1, 2, 0.2, 20, 3000, 40, 1
+
+; rotational diffusion constant
+$ROTDIF 0.062
+
+; dimension of environment and space in which the 
+; bugs move   
+$DIMENSION 3D
+
+; let's try the capillary assay
+$ENVIRONMENT 
+CAPILLARY_ASSAY
+
+; initialising cell positions
+; note, that there is no error checking for the capillary assay
+; environment. if cells are placed outside of the assay,
+; we cannot guarantee for the behaviour of the simulator
+$CELLPOSITIONINIT 
+ALL_SAME_POSITION 0.0 0.0 5000.0 12000
+
+; suffix for output files, flag whether output should be binary (true/false), 
+; flag indicating whether whether world-output should be blocked (true/false),
+; this replaces old command line arguments -outputSuffix -binary -blockworldoutput
+$OUTPUTFLAGS
+SUFFIX _capillaryIII
+BINARY false 
+BLOCKWORLDOUTPUT true
+RUNTUMBLEOUTPUT false
+CELLPOSITIONOUTPUT true
+CELLDATA false
+
+; time keeping:
+; end time, dt, start-time, equilibration time, output-interval (replaces
+; command line argument with the same name) 
+$TIMEINFO
+3610.01 0.01 0.0 10.0 10.0
+
+; seeding the random number generator
+$SEED 3
